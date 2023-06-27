@@ -1,4 +1,4 @@
-package com.example.taxapp.billing;
+package com.example.taxapp;
 
 import android.content.ContentValues;
 import android.content.Intent;
@@ -16,10 +16,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.taxapp.R;
-import com.example.taxapp.billing.data.GSTBillingContract;
-import com.example.taxapp.billing.data.GSTBillingContract.GSTBillingCustomerEntry;
-import com.example.taxapp.billing.data.GSTBillingContract.GSTBillingEntry;
+import com.example.taxapp.data.GSTBillingContract.GSTBillingCustomerEntry;
+import com.example.taxapp.data.GSTBillingContract.GSTBillingEntry;
+import com.example.taxapp.data.GSTBillingContract;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -97,11 +96,11 @@ public class NewBillActivity extends AppCompatActivity {
                             null
                     );
                     ContentValues contentValues = new ContentValues();
-                    contentValues.put(GSTBillingContract.GSTBillingEntry.PRIMARY_COLUMN_STATUS, GSTBillingContract.BILL_STATUS_UNPAID);
+                    contentValues.put(GSTBillingEntry.PRIMARY_COLUMN_STATUS, GSTBillingContract.BILL_STATUS_UNPAID);
                     getContentResolver().update(
-                            GSTBillingContract.GSTBillingEntry.CONTENT_URI.buildUpon().appendPath(editIntent.getStringExtra(DetailActivity.EDITING_ITEM)).build(),
+                            GSTBillingEntry.CONTENT_URI.buildUpon().appendPath(editIntent.getStringExtra(DetailActivity.EDITING_ITEM)).build(),
                             contentValues,
-                            GSTBillingContract.GSTBillingEntry._ID + "=" + editIntent.getStringExtra(DetailActivity.EDITING_ITEM),
+                            GSTBillingEntry._ID + "=" + editIntent.getStringExtra(DetailActivity.EDITING_ITEM),
                             null
                     );
                     DetailActivity.changeBillStatus();
@@ -204,7 +203,7 @@ public class NewBillActivity extends AppCompatActivity {
 
             // Inserting item details in secondary table
             String id = idUri.getLastPathSegment();
-            getContentResolver().bulkInsert(GSTBillingContract.GSTBillingEntry.CONTENT_URI.buildUpon().appendPath(id).build(),
+            getContentResolver().bulkInsert(GSTBillingEntry.CONTENT_URI.buildUpon().appendPath(id).build(),
                     cvList.toArray(new ContentValues[cvList.size()]));
 
             // Opening detail activity
@@ -222,15 +221,15 @@ public class NewBillActivity extends AppCompatActivity {
             addingMoreItems = true;
 
             String id = getIntent().getStringExtra(GSTBillingEntry._ID);
-            getContentResolver().bulkInsert(GSTBillingContract.GSTBillingEntry.CONTENT_URI.buildUpon().appendPath(id).build(),
+            getContentResolver().bulkInsert(GSTBillingEntry.CONTENT_URI.buildUpon().appendPath(id).build(),
                     cvList.toArray(new ContentValues[cvList.size()]));
 
             ContentValues contentValues = new ContentValues();
-            contentValues.put(GSTBillingContract.GSTBillingEntry.PRIMARY_COLUMN_STATUS, GSTBillingContract.BILL_STATUS_UNPAID);
+            contentValues.put(GSTBillingEntry.PRIMARY_COLUMN_STATUS, GSTBillingContract.BILL_STATUS_UNPAID);
             getContentResolver().update(
-                    GSTBillingContract.GSTBillingEntry.CONTENT_URI.buildUpon().appendPath(String.valueOf(id)).build(),
+                    GSTBillingEntry.CONTENT_URI.buildUpon().appendPath(String.valueOf(id)).build(),
                     contentValues,
-                    GSTBillingContract.GSTBillingEntry._ID + "=" + id,
+                    GSTBillingEntry._ID + "=" + id,
                     null
             );
             DetailActivity.changeBillStatus();

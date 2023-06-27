@@ -1,4 +1,4 @@
-package com.example.taxapp.billing.data;
+package com.example.taxapp.data;
 
 import android.content.ContentProvider;
 import android.content.ContentUris;
@@ -12,11 +12,9 @@ import android.net.Uri;
 
 import androidx.annotation.Nullable;
 
-import com.example.taxapp.billing.NewBillActivity;
+import com.example.taxapp.NewBillActivity;
 
-/**
- * Created by Ajay on 7/23/2017.
- */
+
 
 public class GSTBillingContentProvider extends ContentProvider {
 

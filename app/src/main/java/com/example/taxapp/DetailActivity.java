@@ -1,5 +1,6 @@
-package com.example.taxapp.billing;
+package com.example.taxapp;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -10,6 +11,13 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.InputType;
+import android.text.method.PasswordTransformationMethod;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
@@ -20,17 +28,8 @@ import androidx.loader.content.Loader;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.text.InputType;
-import android.text.method.PasswordTransformationMethod;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.example.taxapp.R;
-import com.example.taxapp.billing.data.GSTBillingContract;
-import com.example.taxapp.billing.utils.NumberToWord;
+import com.example.taxapp.data.GSTBillingContract;
+import com.example.taxapp.utils.NumberToWord;
 
 
 public class DetailActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
@@ -67,6 +66,7 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
 
     private static Intent getDetailIntent;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

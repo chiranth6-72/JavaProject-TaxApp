@@ -1,9 +1,8 @@
-package com.example.taxapp.billing.data;
+package com.example.taxapp.data;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
 
 
 public class GSTBillingDbHelper extends SQLiteOpenHelper {
