@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "236718078502",
+    "project_id": "taxtrack-2eaba",
+    "storage_bucket": "taxtrack-2eaba.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:236718078502:android:fec5d22bb0ef7bfda544e7",
+        "android_client_info": {
+          "package_name": "com.example.taxapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "236718078502-9sd1sp3onh44ab8i3ec6a4otk0ptni7j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDG_doMDrmYcngTQr0fml56ToPh-3T7iew"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "236718078502-9sd1sp3onh44ab8i3ec6a4otk0ptni7j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

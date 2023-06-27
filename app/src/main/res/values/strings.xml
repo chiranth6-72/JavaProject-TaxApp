@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">E Bill</string>
+    <string name="app_name">TaxTrack</string>
     <string name="unpaid_bills_title">Unpaid Bills</string>
     <string name="paid_bills_title">Paid Bills</string>
     <string name="setup_password_activity_title">Setup Password</string>
@@ -91,4 +91,10 @@
     <string name="add_tax">Add Tax</string>
     <string name="textview">TextView</string>
     <string name="selling_price">Selling price</string>
+    <string name="login">Login</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="register">Register\n</string>
+    <string name="already_reg">Already registered?\nClick here to Login</string>
+    <string name="not_reg">Not Registered?\nClick here to SignUp</string>
 </resources>
