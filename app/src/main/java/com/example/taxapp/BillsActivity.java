@@ -26,6 +26,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.taxapp.data.GSTBillingContract;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class BillsActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>, BillAdapter.BillItemClickListener {
 
@@ -37,6 +38,11 @@ public class BillsActivity extends AppCompatActivity implements LoaderManager.Lo
 
     private static final int BILL_LOADER_ID = 100;
 
+    @Override
+    protected void onStop(){
+        super.onStop();
+        FirebaseAuth.getInstance().signOut();
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

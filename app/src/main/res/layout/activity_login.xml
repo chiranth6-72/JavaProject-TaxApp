@@ -2,66 +2,75 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#74BAF2"
+    android:gravity="center"
+    android:orientation="vertical"
     android:padding="15dp"
     tools:context=".Login">
-    
-    <TextView
-        android:text="@string/login"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:layout_marginBottom="20dp"
 
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_width="328dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/rounded_text_view"
+        android:gravity="center"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:text="@string/login"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/email"
-            android:hint="@string/email"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="48dp"
+            android:hint="@string/email"
+            tools:ignore="TouchTargetSizeCheck" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:passwordToggleEnabled="true"
+        >
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/password"
-            android:hint="@string/password"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="48dp"
+            android:hint="@string/password"
+            tools:ignore="TouchTargetSizeCheck" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <ProgressBar
         android:id="@+id/progressBar2"
-        android:visibility="gone"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
 
     <Button
         android:id="@+id/btnLogin"
-        android:text="@string/login"
+        android:layout_width="109dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:background="@drawable/rounded_button_bg"
+        android:text="@string/login_btn" />
 
 
     <TextView
         android:id="@+id/regNow"
-        android:text="@string/not_reg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:textAlignment="viewStart"
         android:paddingStart="15dp"
+        android:text="@string/not_reg"
+        android:textAlignment="viewStart"
         android:textSize="12sp"
         tools:ignore="RtlSymmetry" />
 

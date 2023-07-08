@@ -1,6 +1,5 @@
 package com.example.taxapp;
 
-import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -43,7 +42,6 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
     static final String ADDING_MORE_ITEMS = "adding-more-items-to-bill";
     static final String EDITING_ITEM = "editing-existing-item";
 
-    private RecyclerView detailRecyclerView;
     private DetailAdapter adapter;
     private static String billId;
     private static String billStatus;
@@ -66,7 +64,6 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
 
     private static Intent getDetailIntent;
 
-    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,26 +75,27 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         billId = getDetailIntent.getStringExtra(GSTBillingContract.GSTBillingEntry._ID);
 
 
-        if (getDetailIntent.hasExtra(GSTBillingContract.GSTBillingEntry.PRIMARY_COLUMN_STATUS)) {
+        if(getDetailIntent.hasExtra(GSTBillingContract.GSTBillingEntry.PRIMARY_COLUMN_STATUS)){
             billStatus = getDetailIntent.getStringExtra(GSTBillingContract.GSTBillingEntry.PRIMARY_COLUMN_STATUS);
         }
 
-        if (billStatus.equals(GSTBillingContract.BILL_STATUS_PAID)) {
+
+        if(billStatus.equals(GSTBillingContract.BILL_STATUS_PAID)){
             detailActionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#00C853")));
-        } else {
+        }else {
             detailActionBar.setBackgroundDrawable(new ColorDrawable(Color.RED));
         }
 
-        if (getDetailIntent.hasExtra(GSTBillingContract.GSTBillingEntry.PRIMARY_COLUMN_NAME)) {
+        if(getDetailIntent.hasExtra(GSTBillingContract.GSTBillingEntry.PRIMARY_COLUMN_NAME)){
             customerName = getDetailIntent.getStringExtra(GSTBillingContract.GSTBillingEntry.PRIMARY_COLUMN_NAME);
             detailActionBar.setTitle(customerName);
         }
 
-        if (getDetailIntent.hasExtra(GSTBillingContract.GSTBillingEntry.PRIMARY_COLUMN_PHONE_NUMBER)) {
+        if(getDetailIntent.hasExtra(GSTBillingContract.GSTBillingEntry.PRIMARY_COLUMN_PHONE_NUMBER)){
             phoneNumber = getDetailIntent.getStringExtra(GSTBillingContract.GSTBillingEntry.PRIMARY_COLUMN_PHONE_NUMBER);
         }
 
-        detailRecyclerView = (RecyclerView) findViewById(R.id.detail_recycler_view);
+        RecyclerView detailRecyclerView = (RecyclerView) findViewById(R.id.detail_recycler_view);
         detailRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         detailRecyclerView.setHasFixedSize(true);
         adapter = new DetailAdapter(this);
@@ -115,16 +113,16 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         getSupportLoaderManager().initLoader(DETAIL_LOADER_ID, null, this);
     }
 
-    public static void printTotalDetails(float totalTaxableValue, float totalSingleGst, float totalAmount) {
+    public static void printTotalDetails(float totalTaxableValue, float totalSingleGst, float totalAmount){
         totalTaxableValueTv.setText(inr + String.format("%.2f", totalTaxableValue));
         totalCgstTv.setText(inr + String.format("%.2f", totalSingleGst));
         totalSgstTv.setText(inr + String.format("%.2f", totalSingleGst));
-        totalGstTv.setText(inr + String.format("%.2f", (totalSingleGst + totalSingleGst)));
+        totalGstTv.setText(inr + String.format("%.2f", (totalSingleGst+totalSingleGst)));
         totalAmountTv.setText(inr + String.format("%.2f", totalAmount));
-        totalAmountInWordsTv.setText("Rupees. " + NumberToWord.getNumberInWords(String.valueOf((int) totalAmount)));
+        totalAmountInWordsTv.setText("Rupees. " + NumberToWord.getNumberInWords(String.valueOf((int)totalAmount)));
     }
 
-    private void markAsPaid() {
+    private void markAsPaid(){
         ContentValues contentValues = new ContentValues();
         contentValues.put(GSTBillingContract.GSTBillingEntry.PRIMARY_COLUMN_STATUS, GSTBillingContract.BILL_STATUS_PAID);
         getContentResolver().update(
@@ -149,35 +147,35 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_mark_as_paid) {
-            if (billStatus.equals(GSTBillingContract.BILL_STATUS_UNPAID)) {
+        if(id == R.id.action_mark_as_paid){
+            if(billStatus.equals(GSTBillingContract.BILL_STATUS_UNPAID)){
 
                 displayPasswordDialog(ACTION_MARK_AS_PAID_ID);
 
-            } else {
+            }else {
                 Toast.makeText(this, getString(R.string.marked_as_paid_already), Toast.LENGTH_LONG).show();
             }
-        } else if (id == R.id.action_call_customer) {
-            if (phoneNumber != null && phoneNumber.length() == 10) {
+        }else if(id == R.id.action_call_customer){
+            if(phoneNumber != null && phoneNumber.length() == 10){
                 Intent callIntent = new Intent(Intent.ACTION_VIEW);
                 callIntent.setData(Uri.parse("tel:" + "+91" + phoneNumber));
                 startActivity(callIntent);
-            } else {
+            }else {
                 Toast.makeText(this, getString(R.string.no_phone_number_error), Toast.LENGTH_SHORT).show();
             }
-        } else if (id == R.id.action_delete_bill) {
-            if (billId != null && billId.length() != 0) {
+        }else if(id == R.id.action_delete_bill){
+            if(billId != null && billId.length() != 0){
 
                 displayPasswordDialog(ACTION_DELETE_BILL_ID);
 
             }
-        } else if (id == R.id.action_add_more_items) {
-            if (billId != null && billId.length() != 0) {
+        }else if(id == R.id.action_add_more_items){
+            if(billId != null && billId.length() != 0){
 
                 displayPasswordDialog(ACTION_ADD_MORE_ITEMS_ID);
 
             }
-        } else if (id == R.id.action_save_to_pdf) {
+        }else if(id == R.id.action_save_to_pdf){
             Intent pdfIntent = new Intent(this, SavePDFActivity.class);
             pdfIntent.putExtra(GSTBillingContract.GSTBillingEntry.PRIMARY_COLUMN_NAME, customerName);
             pdfIntent.putExtra(GSTBillingContract.GSTBillingEntry._ID, billId);
@@ -190,10 +188,10 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
 
     private void deleteBill() {
         int rowsDeleted = getContentResolver().delete(GSTBillingContract.GSTBillingEntry.CONTENT_URI.buildUpon().appendPath(billId).build(), null, null);
-        if (rowsDeleted == 1) {
+        if(rowsDeleted == 1){
             Toast.makeText(this, getString(R.string.delete_bill_success), Toast.LENGTH_SHORT).show();
             finish();
-        } else {
+        }else {
             Toast.makeText(this, getString(R.string.delete_bill_error), Toast.LENGTH_SHORT).show();
         }
     }
@@ -201,14 +199,14 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
     private void displayPasswordDialog(final int actionId) {
 
         String title = getString(R.string.action_mark_as_paid_label);
-        if (actionId == ACTION_DELETE_BILL_ID) {
+        if(actionId == ACTION_DELETE_BILL_ID){
             title = getString(R.string.action_delete_bill_label);
-        } else if (actionId == ACTION_ADD_MORE_ITEMS_ID) {
+        }else if(actionId == ACTION_ADD_MORE_ITEMS_ID){
             title = getString(R.string.action_add_more_items_label);
         }
 
         final EditText passwordInput = new EditText(this);
-        passwordInput.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        passwordInput.setInputType(InputType.TYPE_CLASS_TEXT|InputType.TYPE_TEXT_VARIATION_PASSWORD);
         passwordInput.setTransformationMethod(PasswordTransformationMethod.getInstance());
         passwordInput.setHint(R.string.enter_password_dialog_hint);
         passwordInput.setHintTextColor(Color.LTGRAY);
@@ -221,9 +219,9 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
                         String password = passwordInput.getText().toString();
                         String savedPassword = PreferenceManager.getDefaultSharedPreferences(DetailActivity.this)
                                 .getString(SetupPasswordActivity.SETUP_PASSWORD_KEY, null);
-                        if (savedPassword != null && savedPassword.equals(password)) {
+                        if(savedPassword != null && savedPassword.equals(password)){
 
-                            switch (actionId) {
+                            switch (actionId){
                                 case ACTION_MARK_AS_PAID_ID:
                                     markAsPaid();
                                     break;
@@ -237,7 +235,7 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
                                     Toast.makeText(DetailActivity.this, getString(R.string.no_operation_specified_error), Toast.LENGTH_SHORT).show();
                             }
 
-                        } else {
+                        }else {
                             Toast.makeText(DetailActivity.this, getString(R.string.invalid_password_error), Toast.LENGTH_LONG).show();
                         }
                     }
@@ -261,10 +259,10 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         startActivity(addIntent);
     }
 
-    public static void editItem(final Context context, final int id, final String itemDescription, final float finalPrice, final int quantity) {
+    public static void editItem(final Context context, final int id, final String itemDescription, final float finalPrice, final int quantity){
 
         final EditText passwordInput = new EditText(context);
-        passwordInput.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        passwordInput.setInputType(InputType.TYPE_CLASS_TEXT|InputType.TYPE_TEXT_VARIATION_PASSWORD);
         passwordInput.setTransformationMethod(PasswordTransformationMethod.getInstance());
         passwordInput.setHint(R.string.enter_password_dialog_hint);
         passwordInput.setHintTextColor(Color.LTGRAY);
@@ -277,7 +275,7 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
                         String password = passwordInput.getText().toString();
                         String savedPassword = PreferenceManager.getDefaultSharedPreferences(context)
                                 .getString(SetupPasswordActivity.SETUP_PASSWORD_KEY, null);
-                        if (savedPassword != null && savedPassword.equals(password)) {
+                        if(savedPassword != null && savedPassword.equals(password)){
 
                             Intent editIntent = new Intent(context, NewBillActivity.class);
                             editIntent.putExtra(EDITING_ITEM, billId);
@@ -287,7 +285,7 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
                             editIntent.putExtra(GSTBillingContract.GSTBillingCustomerEntry.SECONDARY_COLUMN_QUANTITY, quantity);
                             context.startActivity(editIntent);
 
-                        } else {
+                        }else {
                             Toast.makeText(context, context.getString(R.string.invalid_password_error), Toast.LENGTH_LONG).show();
                         }
                     }
@@ -326,7 +324,7 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         itemCount = 0;
     }
 
-    public static void changeBillStatus() {
+    public static void changeBillStatus(){
         billStatus = GSTBillingContract.BILL_STATUS_UNPAID;
         detailActionBar.setBackgroundDrawable(new ColorDrawable(Color.RED));
         getDetailIntent.putExtra(GSTBillingContract.GSTBillingEntry.PRIMARY_COLUMN_STATUS, billStatus);

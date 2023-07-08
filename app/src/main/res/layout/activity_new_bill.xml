@@ -95,10 +95,11 @@
                 android:layout_height="wrap_content" />
 
             <Button
+                android:onClick="addToBill"
                 android:id="@+id/add_to_bill_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Button"
+                android:text="@string/add_to_bill_btn_label"
                 tools:text="ADD ITEM TO BILL" />
 
         </LinearLayout>
