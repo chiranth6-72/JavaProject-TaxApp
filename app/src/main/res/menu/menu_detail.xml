@@ -25,5 +25,6 @@
         android:id="@+id/action_save_to_pdf"
         android:orderInCategory="5"
         android:title="@string/action_save_to_pdf_label"
+        android:enabled="false"
         app:showAsAction="never" />
 </menu>

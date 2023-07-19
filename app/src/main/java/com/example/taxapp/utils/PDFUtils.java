@@ -18,8 +18,8 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
 
 
 public class PDFUtils {
@@ -47,7 +47,9 @@ public class PDFUtils {
         String targetPdf = fileName + ".pdf";
         File filePath = new File(folder + File.separator + targetPdf);
         try {
-            document.writeTo(new FileOutputStream(filePath));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                document.writeTo(Files.newOutputStream(filePath.toPath()));
+            }
             Toast.makeText(context, "File saved : " + filePath.toString(), Toast.LENGTH_LONG).show();
         } catch (IOException e) {
             e.printStackTrace();
